@@ -1,6 +1,6 @@
 .weather {
   margin-top: 20px;
-  border: 3px dashed grey;
+  border: 3px solid grey;
   border-radius: 20px;
   padding-bottom: 30px;
   width: max-content;
@@ -18,13 +18,13 @@
 .weather form input {
   padding: 10px;
   border: none;
-  border-bottom: 2px dashed rgb(2, 57, 88);
+  border-bottom: 2px solid rgb(2, 57, 88);
   margin-right: 10px;
 }
 
 .weather form input:focus {
   outline: none;
-  border-bottom: 3px dashed rgb(2, 57, 88);
+  border-bottom: 3px solid rgb(2, 57, 88);
 }
 
 .weather .getweather {
