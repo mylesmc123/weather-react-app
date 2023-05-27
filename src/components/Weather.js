@@ -30,6 +30,7 @@ function Weather() {
         } else if (form.longitude === "") {
             alert("Add longitude")
         } else {
+
             // Get Token for weather api auth.
             const token = await fetch('https://login.meteomatics.com/api/v1/token', {
                 method: 'GET', headers: headers
@@ -37,11 +38,19 @@ function Weather() {
                 return resp.json();
             }).then(function (data) {
                 var token = data.access_token;
-                // console.log('token', token);
-                return fetch(`https://api.meteomatics.com/2023-05-26T00:00:00Z/t_2m:C/${form.latitude},${form.longitude}/json?model=mix&access_token=${token}`
-                ).then(
-                    res => console.log(res.json())
+
+                // Get Datetime
+                const now = Date.now()
+                const currentDate = new Date(now).toISOString()
+
+                // Get weather data
+                return fetch(
+                    `https://api.meteomatics.com/${currentDate}/t_2m:C/` +
+                    `${form.latitude},${form.longitude}/json?model=mix&access_token=${token}`
                 )
+                    .then((res) => res.json())
+                    .then((data) => console.log(data));
+
             }).catch(function (err) {
                 console.log('something went wrong', err);
             });
@@ -51,18 +60,13 @@ function Weather() {
     const handleChange = (e) => {
         let name = e.target.name
         let value = e.target.value
-
         if (name === "latitude") {
             setForm({ ...form, latitude: value })
         }
-
         if (name === "longitude") {
             setForm({ ...form, longitude: value })
         }
-
-        console.log(form.latitude, form.longitude);
     }
-
 
     return (
         <div className='weather' >
