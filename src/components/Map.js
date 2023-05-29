@@ -7,9 +7,9 @@ import { getWeather, fetchCity } from '../js/GetWeather'
 export default function Map() {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng] = useState(139.753);
-    const [lat] = useState(35.6844);
-    const [zoom] = useState(14);
+    const [lng] = useState(-88);
+    const [lat] = useState(28);
+    const [zoom] = useState(3);
     const [API_KEY] = useState('G28Wx0TEh00gRJifwBmD');
 
     useEffect(() => {
