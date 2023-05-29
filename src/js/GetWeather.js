@@ -7,29 +7,43 @@ export async function getWeather(coords) {
     let headers = new Headers();
     headers.set('Authorization', 'Basic ' + btoa(weather_api.username + ":" + weather_api.password));
 
-    // Get Token for weather api auth.
-    await fetch('https://login.meteomatics.com/api/v1/token', {
+    const tokenres = await fetch('https://login.meteomatics.com/api/v1/token', {
         method: 'GET', headers: headers
-    }).then(function (resp) {
-        return resp.json();
-    }).then(function (data) {
-        var token = data.access_token;
+    })
 
-        // Get Datetime
-        const now = Date.now()
-        const currentDate = new Date(now).toISOString()
+    const token = await tokenres.json()
+    const weatherData = await fetchWeather(token.access_token, coords)
+    console.log(weatherData);
+    return weatherData
+}
 
-        // Get weather data
-        return fetch(
-            `https://api.meteomatics.com/${currentDate}/t_2m:C/` +
-            `${coords.lat},${coords.lng}/json?model=mix&access_token=${token}`
-        )
-            .then((res) => res.json())
-            .then((data) => console.log(data));
+async function fetchWeather(token, coords) {
+    // Get Datetime
+    const now = Date.now()
+    const currentDate = new Date(now).toISOString()
+
+    // Get weather data
+    const weatherRes = await fetch(
+        `https://api.meteomatics.com/${currentDate}/t_2m:C/` +
+        `${coords.lat},${coords.lng}/json?model=mix&access_token=${token}`
+    )
+    let weatherData = await weatherRes.json()
+    return weatherData
+}
 
 
-    }).catch(function (err) {
-        console.log('something went wrong', err);
-    });
+export async function fetchCity(coords) {
+
+    const coords_api = 'prj_test_pk_859c74fe66361118ee45c0dd19c72605c56d8a94'
+
+    let headers = new Headers();
+    headers.set('Authorization', coords_api);
+
+    const cityRes = await fetch(`https://api.radar.io/v1/geocode/reverse?coordinates=${coords.lat}%2C${coords.lng}`, {
+        method: 'GET', headers: headers
+    })
+
+    const city = await cityRes.json()
+    return city
 }
 

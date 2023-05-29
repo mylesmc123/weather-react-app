@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './map.css';
-import { getWeather } from '../js/GetWeather'
+import { getWeather, fetchCity } from '../js/GetWeather'
 
 export default function Map() {
     const mapContainer = useRef(null);
@@ -29,21 +29,25 @@ export default function Map() {
 
         map.current.on('click', function (e) {
             const coords = e.lngLat
-            async function getWeatherData(coords) {
-                let weatherData = await getWeather(coords)
-                return weatherData
-            }
-            let weatherData = getWeatherData(coords)
-            console.log(weatherData);
 
-            // console.log(weather.data[0].coordinates[0].dates[0].value);
-            // console.log(weather.data)
-            var popup = new maplibregl.Popup({ closeOnClick: true })
-                .setLngLat(coords)
-                .setHTML('<h1>Hello World!</h1>')
-                .addTo(map.current);
+            // let weatherData = getWeather(coords)
+            // console.log(weatherData.data);
+            getWeather(coords)
+                .then(data => {
+                    console.log(data.data[0].coordinates[0].dates[0]);
+                    const weatherHTML = `<p>Date: ${data.data[0].coordinates[0].dates[0].date}<br />Temperature C: ${data.data[0].coordinates[0].dates[0].value}<p />`
+                    fetchCity(coords)
+                        .then(data => {
+                            console.log(data.addresses[0].state);
+                            const locationHTML = `<h4>${data.addresses[0].city}, ${data.addresses[0].state}, ${data.addresses[0].country}</h4>`
+                            // const popupHTML = `<p>Date: ${data.data[0].coordinates[0].dates[0].date}</p>`
+                            var popup = new maplibregl.Popup({ closeOnClick: true })
+                                .setLngLat(coords)
+                                .setHTML(locationHTML + weatherHTML)
+                                .addTo(map.current);
+                        })
 
-            // console.log(weatherData);
+                });
         })
         // setMarker(e.latlng);
 
