@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './map.css';
+import { getWeather } from '../js/GetWeather'
 
 export default function Map() {
     const mapContainer = useRef(null);
@@ -27,7 +28,22 @@ export default function Map() {
         //     .addTo(map.current);
 
         map.current.on('click', function (e) {
-            console.log(e.lngLat);
+            const coords = e.lngLat
+            async function getWeatherData(coords) {
+                let weatherData = await getWeather(coords)
+                return weatherData
+            }
+            let weatherData = getWeatherData(coords)
+            console.log(weatherData);
+
+            // console.log(weather.data[0].coordinates[0].dates[0].value);
+            // console.log(weather.data)
+            var popup = new maplibregl.Popup({ closeOnClick: true })
+                .setLngLat(coords)
+                .setHTML('<h1>Hello World!</h1>')
+                .addTo(map.current);
+
+            // console.log(weatherData);
         })
         // setMarker(e.latlng);
 
