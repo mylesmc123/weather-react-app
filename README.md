@@ -1,13 +1,16 @@
 # React JS Weather App
+![image](https://github.com/mylesmc123/weather-react-app/assets/64209352/ea68cf88-f1e9-4256-b1a7-bf75aa7f7698)
 
-Build a weather app in react js using:
+## Build a weather app in react js using:
 
-## Maplibre JS GL:
-for having an interactive map to select a location to display weather data for.
-## Open Weather API: 
-For displaying weather data 
-## Radar API (https://radar.com/): 
-For reverse geocoding location information for coordinates and 
+### Maplibre JS GL:
+An interactive map to select a location to display weather data for.
+
+### Open Weather API: 
+Used for fetching weather data from map coordinates.
+
+### Radar API (https://radar.com/): 
+For reverse geocoding location information from map coordinates.
 
 ## Follow Below Instructions:
 
