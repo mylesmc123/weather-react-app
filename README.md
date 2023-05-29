@@ -1,29 +1,28 @@
 # React JS Weather App
 
-Build a weather app in react js using Open Weather API.
+Build a weather app in react js using:
+
+## Maplibre JS GL:
+for having an interactive map to select a location to display weather data for.
+## Open Weather API: 
+For displaying weather data 
+## Radar API (https://radar.com/): 
+For reverse geocoding location information for coordinates and 
 
 ## Follow Below Instructions:
 
 #### Use This command in cmd or terminal to download starter-code file:
-git clone --single-branch --branch starter-code https://github.com/codebucks27/React-Weather-app.git
+git clone --single-branch --branch starter-code https://github.com/mylesmc123/weather-react-app.git
 
 Then do npm install & npm start
 
-#### After that To build whole app You can follow below Tutorial.
+This project is an expansion of a open weather api demo using the following guide (So, props to Codebucks27):
+#### Tutorial.
 https://youtu.be/uZGhTYZ6eys
-
-#### Final Code
+#### Guide Code
 https://github.com/codebucks27/React-Weather-app.git (On master branch)
 
-
-
-
-
-
-
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 
 In the project directory, you can run:
 
